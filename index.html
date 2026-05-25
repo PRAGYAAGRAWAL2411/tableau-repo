@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Piechart Extension</title>
+    <!-- Include the Tableau Extensions API -->
+    <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a id="card-link" href="#" target="_blank" style="text-decoration: none; color: inherit; display: block;">
+        <div class="card">
+            <div class="card-header">
+                <h1 id="field-header">Ample Prive</h1>
+            </div>
+            <div class="card-body">
+                <div class="stats">
+                    <div class="stat-number">49,620</div>
+                    <div class="stat-label">Total enrollments</div>
+                </div>
+                
+                <div class="chart-container">
+                    <!-- Default image if none provided -->
+                    <img id="chart-img" src="https://via.placeholder.com/200?text=Pie+Chart" alt="Pie Chart">
+                </div>
+                
+                <div class="legend" id="legend">
+                    <div class="legend-item"><span class="color-box spenders"></span>Spenders 59%</div>
+                    <div class="legend-item"><span class="color-box prospects"></span>Prospects 28%</div>
+                    <div class="legend-item"><span class="color-box prosp-spnd"></span>Prosp. spnd 13%</div>
+                </div>
+            </div>
+        </div>
+    </a>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>

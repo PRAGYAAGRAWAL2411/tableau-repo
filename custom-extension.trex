@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
+  <dashboard-extension id="com.example.custom.piechart.extension" extension-version="1.0.0">
+    <default-locale>en_US</default-locale>
+    <name>Custom Piechart Extension</name>
+    <description>A custom extension taking a field header, url, and an img.</description>
+    <author name="Developer" email="dev@example.com" organization="CustomOrg" website="https://example.com"/>
+    <min-api-version>1.0</min-api-version>
+    <source-location>
+      <url>https://sparshwork.github.io/custom-extension/index.html</url>
+    </source-location>
+    <icon>iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADcSURBVGhD7cExAQAAAMKg9U9tCy8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA3A5wwAAH002/mAAAAAElFTkSuQmCC</icon>
+    <context-menu>
+      <configure-context-menu-item />
+    </context-menu>
+  </dashboard-extension>
+  <resources>
+    <application id="com.example.custom.piechart.extension">
+      <elements>
+        <element id="config-dialog">
+          <source-location>
+            <url>https://sparshwork.github.io/custom-extension/config.html</url>
+          </source-location>
+        </element>
+      </elements>
+    </application>
+  </resources>
+</manifest>

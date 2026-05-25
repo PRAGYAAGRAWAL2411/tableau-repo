@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extension Configuration</title>
+    <!-- Include the Tableau Extensions API -->
+    <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background-color: #f4f6f9; padding: 0;">
+    <div class="config-container">
+        <h2 style="margin-bottom: 20px; font-family: 'Playfair Display', serif; color: #3b5284;">Settings</h2>
+        <form id="configForm">
+            <div class="form-group">
+                <label for="fieldHeader">Field Header</label>
+                <input type="text" id="fieldHeader" placeholder="e.g. Ample Prive" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="url">Click URL</label>
+                <input type="url" id="url" placeholder="https://example.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="imgUrl">Image URL</label>
+                <input type="url" id="imgUrl" placeholder="https://url-to-your-piechart.png" required>
+            </div>
+            
+            <button type="submit" class="btn-primary">Save Settings</button>
+        </form>
+    </div>
+
+    <script src="js/config.js"></script>
+</body>
+</html>
