@@ -1,4 +1,4 @@
-/* Removed Google Fonts import, using system Tableau Book font */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
 * {
     box-sizing: border-box;
@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: 'Tableau Book', 'Tableau', Arial, sans-serif;
+    font-family: 'Tableau Book', 'Open Sans', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #f4f6f9;
@@ -42,7 +42,7 @@ body {
 
 .card-header h1 {
     color: #ffffff;
-    font-family: 'Tableau Book', 'Tableau', Arial, sans-serif;
+    font-family: 'Tableau Book', 'Open Sans', Arial, sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -57,7 +57,7 @@ body {
 }
 
 .stat-number {
-    font-family: 'Tableau Book', 'Tableau', Arial, sans-serif;
+    font-family: 'Tableau Book', 'Open Sans', Arial, sans-serif;
     font-size: 1.8rem;
     font-weight: 600;
     color: #1a1a1a;
