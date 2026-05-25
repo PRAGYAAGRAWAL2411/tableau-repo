@@ -6,6 +6,8 @@
     <title>Custom Piechart Extension</title>
     <!-- Include the Tableau Extensions API -->
     <script src="https://cdn.jsdelivr.net/gh/tableau/extensions-api/lib/tableau.extensions.1.latest.js"></script>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -16,19 +18,12 @@
             </div>
             <div class="card-body">
                 <div class="stats">
-                    <div class="stat-number">49,620</div>
+                    <div class="stat-number" id="total-count">0</div>
                     <div class="stat-label">Total enrollments</div>
                 </div>
                 
-                <div class="chart-container">
-                    <!-- Default image if none provided -->
-                    <img id="chart-img" src="https://via.placeholder.com/200?text=Pie+Chart" alt="Pie Chart">
-                </div>
-                
-                <div class="legend" id="legend">
-                    <div class="legend-item"><span class="color-box spenders"></span>Spenders 59%</div>
-                    <div class="legend-item"><span class="color-box prospects"></span>Prospects 28%</div>
-                    <div class="legend-item"><span class="color-box prosp-spnd"></span>Prosp. spnd 13%</div>
+                <div class="chart-container" style="position: relative; height: 220px; width: 100%;">
+                    <canvas id="pieChart"></canvas>
                 </div>
             </div>
         </div>

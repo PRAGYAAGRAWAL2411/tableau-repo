@@ -75,48 +75,6 @@ body {
     margin: 20px 0;
 }
 
-.chart-container img {
-    max-width: 180px;
-    height: auto;
-    object-fit: contain;
-}
-
-.legend {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 24px;
-    padding-top: 15px;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    font-size: 0.75rem;
-    color: #4a5568;
-    font-family: 'Playfair Display', serif;
-}
-
-.color-box {
-    width: 12px;
-    height: 12px;
-    display: inline-block;
-    margin-right: 6px;
-}
-
-.spenders {
-    background-color: #1e52a8;
-}
-
-.prospects {
-    background-color: #4b8ce2;
-}
-
-.prosp-spnd {
-    background-color: #a4c9ef;
-}
 
 /* Form Styles for Config */
 .config-container {
@@ -141,7 +99,8 @@ body {
     font-size: 0.9rem;
 }
 
-.form-group input {
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 10px;
     border: 1px solid #d1d5db;
@@ -150,7 +109,8 @@ body {
     transition: border-color 0.2s;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
     outline: none;
     border-color: #3b5284;
 }
