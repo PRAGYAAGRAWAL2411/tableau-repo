@@ -21,6 +21,13 @@ tableau.extensions.initializeAsync({'configure': configure}).then(function() {
     worksheet.addEventListener(tableau.TableauEventType.FilterChanged, fetchDataAndRenderChart);
     worksheet.addEventListener(tableau.TableauEventType.MarkSelectionChanged, fetchDataAndRenderChart);
 
+    // Also re-fetch when any workbook parameter changes
+    worksheet.getWorkbook().getParametersAsync().then(function(parameters) {
+        parameters.forEach(function(p) {
+            p.addEventListener(tableau.TableauEventType.ParameterChanged, fetchDataAndRenderChart);
+        });
+    });
+
 }).catch(function(error) {
     console.error("Error initializing Tableau extension:", error);
 });
