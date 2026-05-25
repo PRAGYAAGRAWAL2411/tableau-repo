@@ -14,15 +14,5 @@
       <configure-context-menu-item />
     </context-menu>
   </dashboard-extension>
-  <resources>
-    <application id="com.example.custom.piechart.extension">
-      <elements>
-        <element id="config-dialog">
-          <source-location>
-            <url>https://sparshwork.github.io/custom-extension/config.html</url>
-          </source-location>
-        </element>
-      </elements>
-    </application>
-  </resources>
+
 </manifest>
