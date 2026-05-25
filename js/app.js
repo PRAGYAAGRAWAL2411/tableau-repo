@@ -29,9 +29,21 @@ tableau.extensions.initializeAsync({'configure': configure}).then(function() {
 function updateUI(settings) {
     const fieldHeaderEl = document.getElementById('field-header');
     const cardLinkEl = document.getElementById('card-link');
+    const subtitleEl = document.getElementById('subtitle-text');
 
     if (settings.fieldHeader) {
         fieldHeaderEl.textContent = settings.fieldHeader;
+    } else {
+        // Fallback to worksheet name if not configured
+        if (tableau.extensions.worksheetContent && tableau.extensions.worksheetContent.worksheet) {
+            fieldHeaderEl.textContent = tableau.extensions.worksheetContent.worksheet.name;
+        }
+    }
+
+    if (settings.subtitleText) {
+        subtitleEl.textContent = settings.subtitleText;
+    } else {
+        subtitleEl.textContent = "Total"; // Default fallback
     }
 
     if (settings.url) {
