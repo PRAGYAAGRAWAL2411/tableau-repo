@@ -143,13 +143,13 @@ function renderChart(labels, dataValues) {
                 tooltip: {
                     callbacks: {
                         title: function() {
-                            return ''; // Hide the redundant bold title
+                            return null; // Explicitly return null to completely remove the title element
                         },
                         label: function(context) {
                             let label = context.label || '';
                             
-                            // Remove the percentage we appended for the legend (e.g. " 13%")
-                            label = label.replace(/\s\d+%$/, '');
+                            // More aggressive removal of the percentage (handles unexpected spaces)
+                            label = label.replace(/\s*\d+%\s*$/, '');
                             
                             if (label) {
                                 label += ': ';
