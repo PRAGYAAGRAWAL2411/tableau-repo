@@ -43,7 +43,7 @@ function updateUI(settings) {
     if (settings.subtitleText) {
         subtitleEl.textContent = settings.subtitleText;
     } else {
-        subtitleEl.textContent = "Total"; // Default fallback
+        subtitleEl.textContent = "Total enrollments"; // Default fallback
     }
 
     if (settings.url) {
