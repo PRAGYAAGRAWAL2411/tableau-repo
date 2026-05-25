@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
-  <dashboard-extension id="com.example.custom.piechart.extension" extension-version="1.0.0">
+  <worksheet-extension id="com.example.custom.piechart.extension" extension-version="1.0.0">
     <default-locale>en_US</default-locale>
     <name>Custom Piechart Extension</name>
     <description>A custom extension taking a field header, url, and an img.</description>
@@ -13,6 +13,15 @@
     <context-menu>
       <configure-context-menu-item />
     </context-menu>
-  </dashboard-extension>
+    <encoding id="category">
+      <display-name>Category</display-name>
+    </encoding>
+    <encoding id="value">
+      <display-name>Value</display-name>
+      <data-spec>
+        <data-type>numeric</data-type>
+      </data-spec>
+    </encoding>
+  </worksheet-extension>
 
 </manifest>

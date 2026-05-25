@@ -1,8 +1,8 @@
 let pieChartInstance = null;
 
-// Initialize the Tableau Extension
+// Initialize the Tableau Viz Extension
 tableau.extensions.initializeAsync({'configure': configure}).then(function() {
-    console.log("Tableau Extension initialized");
+    console.log("Tableau Viz Extension initialized");
     
     // Once initialized, get settings and update UI
     const settings = tableau.extensions.settings.getAll();
@@ -12,6 +12,15 @@ tableau.extensions.initializeAsync({'configure': configure}).then(function() {
     tableau.extensions.settings.addEventListener(tableau.TableauEventType.SettingsChanged, (settingsEvent) => {
         updateUI(settingsEvent.newSettings);
     });
+
+    // Fetch initial data
+    fetchDataAndRenderChart();
+    
+    // Re-fetch when the Marks card or filters change
+    const worksheet = tableau.extensions.worksheetContent.worksheet;
+    worksheet.addEventListener(tableau.TableauEventType.FilterChanged, fetchDataAndRenderChart);
+    worksheet.addEventListener(tableau.TableauEventType.MarkSelectionChanged, fetchDataAndRenderChart);
+
 }).catch(function(error) {
     console.error("Error initializing Tableau extension:", error);
 });
@@ -30,38 +39,31 @@ function updateUI(settings) {
     } else {
         cardLinkEl.removeAttribute('href'); 
     }
-
-    if (settings.selectedWorksheet) {
-        fetchDataAndRenderChart(settings.selectedWorksheet);
-    }
 }
 
-function fetchDataAndRenderChart(worksheetName) {
-    const dashboard = tableau.extensions.dashboardContent.dashboard;
-    const worksheet = dashboard.worksheets.find(w => w.name === worksheetName);
+function fetchDataAndRenderChart() {
+    // Viz extensions live on a specific worksheet
+    const worksheet = tableau.extensions.worksheetContent.worksheet;
     
-    if (!worksheet) {
-        console.error("Worksheet not found:", worksheetName);
-        return;
-    }
-
-    // Add event listener to re-render if data changes (filter changes, etc)
-    worksheet.addEventListener(tableau.TableauEventType.FilterChanged, () => fetchDataAndRenderChart(worksheetName));
-    worksheet.addEventListener(tableau.TableauEventType.MarkSelectionChanged, () => fetchDataAndRenderChart(worksheetName));
-
+    // We use getSummaryDataAsync, assuming Tableau provides the marks data
     worksheet.getSummaryDataAsync().then(function(dataTable) {
-        // Assuming Column 1 is Category/Label, Column 2 is Value
         const labels = [];
         const dataValues = [];
         let totalCount = 0;
 
         dataTable.data.forEach(function(row) {
-            // value is in row[0].value (Category) and row[1].value (Measure)
+            // By default, assume Column 1 is Category and Column 2 is Value
+            // Even if encodings aren't explicitly mapped in the JS, the Marks card drives the columns
             if (row.length >= 2) {
                 labels.push(row[0].formattedValue);
                 const val = parseFloat(row[1].value) || 0;
                 dataValues.push(val);
                 totalCount += val;
+            } else if (row.length === 1) {
+                // Fallback if only one column is dragged in
+                labels.push(row[0].formattedValue);
+                dataValues.push(1);
+                totalCount += 1;
             }
         });
 
@@ -93,7 +95,7 @@ function renderChart(labels, dataValues) {
                     '#1e52a8', // Spenders (dark blue)
                     '#4b8ce2', // Prospects (medium blue)
                     '#a4c9ef', // Prosp. spnd (light blue)
-                    '#f0ad4e', // fallback colors...
+                    '#f0ad4e', 
                     '#d9534f',
                     '#5cb85c'
                 ],
@@ -140,7 +142,7 @@ function renderChart(labels, dataValues) {
 function configure() {
     const popupUrl = `${window.location.origin}${window.location.pathname.replace('index.html', '')}config.html`;
     
-    tableau.extensions.ui.displayDialogAsync(popupUrl, '0', { height: 450, width: 500 }).then((closePayload) => {
+    tableau.extensions.ui.displayDialogAsync(popupUrl, '0', { height: 350, width: 450 }).then((closePayload) => {
         console.log("Configuration dialog closed.", closePayload);
     }).catch((error) => {
         switch(error.errorCode) {
