@@ -126,12 +126,13 @@ function renderChart(labels, dataValues) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            devicePixelRatio: window.devicePixelRatio || 1, // Ensure crisp rendering on high-DPI screens
             plugins: {
                 legend: {
                     position: 'bottom',
                     labels: {
                         font: {
-                            family: "'Playfair Display', serif",
+                            family: "'Tableau Book', 'Tableau', Arial, sans-serif",
                             size: 11
                         },
                         color: '#4a5568',

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@400;500&display=swap');
+/* Removed Google Fonts import, using system Tableau Book font */
 
 * {
     box-sizing: border-box;
@@ -7,7 +7,9 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Tableau Book', 'Tableau', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background-color: #f4f6f9;
     display: flex;
     justify-content: center;
@@ -40,7 +42,7 @@ body {
 
 .card-header h1 {
     color: #ffffff;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Tableau Book', 'Tableau', Arial, sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -55,7 +57,7 @@ body {
 }
 
 .stat-number {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Tableau Book', 'Tableau', Arial, sans-serif;
     font-size: 1.8rem;
     font-weight: 600;
     color: #1a1a1a;
