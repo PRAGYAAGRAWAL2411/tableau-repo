@@ -79,6 +79,14 @@ function fetchDataAndRenderChart() {
             }
         });
 
+        // Append percentages to the labels so the legend matches the image
+        if (totalCount > 0) {
+            for (let i = 0; i < labels.length; i++) {
+                const percentage = Math.round((dataValues[i] / totalCount) * 100);
+                labels[i] = `${labels[i]} ${percentage}%`;
+            }
+        }
+
         // Update Total Enrollments
         document.getElementById('total-count').textContent = totalCount.toLocaleString();
 
@@ -127,8 +135,9 @@ function renderChart(labels, dataValues) {
                             size: 11
                         },
                         color: '#4a5568',
-                        usePointStyle: true,
-                        boxWidth: 8
+                        usePointStyle: false, // Use standard squares instead of circles
+                        boxWidth: 10,
+                        boxHeight: 10
                     }
                 },
                 tooltip: {
