@@ -21,18 +21,35 @@ tableau.extensions.initializeAsync({'configure': configure}).then(function() {
     worksheet.addEventListener(tableau.TableauEventType.FilterChanged, fetchDataAndRenderChart);
     worksheet.addEventListener(tableau.TableauEventType.MarkSelectionChanged, fetchDataAndRenderChart);
 
-    // Also re-fetch when any workbook parameter changes
-    if (tableau.extensions.workbook && tableau.extensions.workbook.getParametersAsync) {
-        tableau.extensions.workbook.getParametersAsync().then(function(parameters) {
-            parameters.forEach(function(p) {
-                p.addEventListener(tableau.TableauEventType.ParameterChanged, function(event) {
-                    // When a parameter changes, it takes Tableau time to recalculate the 
-                    // underlying worksheet data, especially in large workbooks with date calculations.
-                    // We increase this delay to 2 seconds to ensure Tableau is finished crunching numbers.
-                    setTimeout(fetchDataAndRenderChart, 2000);
+    // Debugging parameter events on-screen
+    const debugEl = document.createElement('div');
+    debugEl.style.fontSize = '11px';
+    debugEl.style.color = 'red';
+    debugEl.style.marginTop = '10px';
+    document.querySelector('.card-body').appendChild(debugEl);
+    
+    function logDebug(msg) {
+        debugEl.innerHTML += msg + "<br/>";
+    }
+
+    try {
+        if (tableau.extensions.workbook && tableau.extensions.workbook.getParametersAsync) {
+            logDebug("Workbook found. Fetching params...");
+            tableau.extensions.workbook.getParametersAsync().then(function(parameters) {
+                logDebug("Found " + parameters.length + " params.");
+                parameters.forEach(function(p) {
+                    p.addEventListener(tableau.TableauEventType.ParameterChanged, function(event) {
+                        logDebug("Param changed: " + event.parameterName);
+                        setTimeout(fetchDataAndRenderChart, 2000);
+                    });
                 });
-            });
-        });
+            }).catch(e => logDebug("Param error: " + e.message));
+        } else {
+            logDebug("No workbook object available in API.");
+            logDebug("Available APIs: " + Object.keys(tableau.extensions).join(", "));
+        }
+    } catch(e) {
+        logDebug("Catch error: " + e.message);
     }
 
 }).catch(function(error) {
