@@ -26,10 +26,10 @@ tableau.extensions.initializeAsync({'configure': configure}).then(function() {
         tableau.extensions.workbook.getParametersAsync().then(function(parameters) {
             parameters.forEach(function(p) {
                 p.addEventListener(tableau.TableauEventType.ParameterChanged, function(event) {
-                    // When a parameter changes, it takes Tableau a fraction of a second to 
-                    // recalculate the underlying worksheet data. We add a small delay 
-                    // before re-fetching the data so we don't accidentally grab the old data.
-                    setTimeout(fetchDataAndRenderChart, 500);
+                    // When a parameter changes, it takes Tableau time to recalculate the 
+                    // underlying worksheet data, especially in large workbooks with date calculations.
+                    // We increase this delay to 2 seconds to ensure Tableau is finished crunching numbers.
+                    setTimeout(fetchDataAndRenderChart, 2000);
                 });
             });
         });
