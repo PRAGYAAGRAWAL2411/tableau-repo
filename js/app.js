@@ -21,36 +21,24 @@ tableau.extensions.initializeAsync({'configure': configure}).then(function() {
     worksheet.addEventListener(tableau.TableauEventType.FilterChanged, fetchDataAndRenderChart);
     worksheet.addEventListener(tableau.TableauEventType.MarkSelectionChanged, fetchDataAndRenderChart);
 
-    // Debugging parameter events on-screen
-    const debugEl = document.createElement('div');
-    debugEl.style.fontSize = '11px';
-    debugEl.style.color = 'red';
-    debugEl.style.marginTop = '10px';
-    document.querySelector('.card-body').appendChild(debugEl);
-    
-    function logDebug(msg) {
-        debugEl.innerHTML += msg + "<br/>";
-    }
-
-    try {
-        if (tableau.extensions.workbook && tableau.extensions.workbook.getParametersAsync) {
-            logDebug("Workbook found. Fetching params...");
-            tableau.extensions.workbook.getParametersAsync().then(function(parameters) {
-                logDebug("Found " + parameters.length + " params.");
-                parameters.forEach(function(p) {
-                    p.addEventListener(tableau.TableauEventType.ParameterChanged, function(event) {
-                        logDebug("Param changed: " + event.parameterName);
-                        setTimeout(fetchDataAndRenderChart, 2000);
-                    });
-                });
-            }).catch(e => logDebug("Param error: " + e.message));
-        } else {
-            logDebug("No workbook object available in API.");
-            logDebug("Available APIs: " + Object.keys(tableau.extensions).join(", "));
-        }
-    } catch(e) {
-        logDebug("Catch error: " + e.message);
-    }
+    // Workaround for Tableau Viz Extensions not having access to Parameter events:
+    // We will poll the data every 2 seconds to see if it changed behind the scenes.
+    let lastDataHash = "";
+    setInterval(function() {
+        const ws = tableau.extensions.worksheetContent.worksheet;
+        ws.getSummaryDataAsync().then(function(dataTable) {
+            // Create a simple string version of the data to see if it changed
+            const currentDataHash = dataTable.data.map(row => row.map(cell => cell.value).join("|")).join("~");
+            
+            if (lastDataHash !== "" && currentDataHash !== lastDataHash) {
+                // Data has changed (likely due to a parameter)! Update the chart.
+                fetchDataAndRenderChart();
+            }
+            lastDataHash = currentDataHash;
+        }).catch(function(e) {
+            console.error("Polling error:", e);
+        });
+    }, 2000);
 
 }).catch(function(error) {
     console.error("Error initializing Tableau extension:", error);
